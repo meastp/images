@@ -1,4 +1,4 @@
-FROM ghcr.io/meastp/base-ubuntu:latest
+FROM ghcr.io/meastp/images/base-ubuntu:latest
 USER root
 
 # Install needed packages. Use a separate RUN statement to add your own dependencies.
