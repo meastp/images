@@ -17,11 +17,25 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
+      - name: Smoke test for 'base-ubuntu'
+        id: smoke_test_base_ubuntu
+        uses: ./.github/actions/smoke-test
+        with:
+          image: "base-ubuntu"
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+      
       - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
         with:
           imageName: ghcr.io/meastp/images/base-ubuntu
           push: always
+      
+      - name: Smoke test for 'cpp'
+        id: smoke_test_cpp
+        uses: ./.github/actions/smoke-test
+        with:
+          image: "cpp"
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
       
       - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
