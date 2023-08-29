@@ -11,6 +11,8 @@ ENV VCPKG_ROOT=/usr/local/vcpkg \
     VCPKG_DOWNLOADS=/usr/local/vcpkg-downloads
 ENV PATH="${PATH}:${VCPKG_ROOT}"
 
+RUN cat /etc/passwd
+
 ARG USERNAME=ubuntu
 
 # Install vcpkg itself: https://github.com/microsoft/vcpkg/blob/master/README.md#quick-start-unix
