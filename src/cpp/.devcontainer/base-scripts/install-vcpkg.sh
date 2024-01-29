@@ -6,7 +6,7 @@
 
 set -e
 
-USERNAME=${1:-"vscode"}
+USERNAME=${1:-"ubuntu"}
 
 . /etc/os-release
 

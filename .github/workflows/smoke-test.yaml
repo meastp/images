@@ -2,6 +2,7 @@ name: Smoke test
 
 on: 
   pull_request:
+  workflow_dispatch:
 
 jobs:
   detect-changes:
