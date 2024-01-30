@@ -3,6 +3,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  test:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Smoke test for 'base-ubuntu'
+        id: smoke_test_base_ubuntu
+        uses: ./.github/actions/smoke-test
+        with:
+          image: "base-ubuntu"
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
   deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
     permissions: write-all
@@ -24,10 +35,3 @@ jobs:
           imageName: ghcr.io/meastp/images/base-ubuntu
           skipContainerUserIdUpdate: true
           push: always
-      
-      - name: Smoke test for 'base-ubuntu'
-        id: smoke_test_base_ubuntu
-        uses: ./.github/actions/smoke-test
-        with:
-          image: "base-ubuntu"
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
