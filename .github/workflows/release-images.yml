@@ -27,7 +27,9 @@ jobs:
       - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
         with:
+          subFolder: ./src/base-ubuntu
           imageName: ghcr.io/meastp/images/base-ubuntu
+          skipContainerUserIdUpdate: true
           push: always
       
       - name: Smoke test for 'cpp'
@@ -40,5 +42,7 @@ jobs:
       - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
         with:
+          subFolder: ./src/base-ubuntu
           imageName: ghcr.io/meastp/images/cpp
+          skipContainerUserIdUpdate: true
           push: always
