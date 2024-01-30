@@ -1,6 +1,14 @@
 name: "Release Dev Container Images"
 on:
   workflow_dispatch:
+    inputs:
+      name:
+        type: choice
+        required: true
+        description: image to test, build, push
+        options:
+        - base-ubuntu
+        - cpp
 
 jobs:
   test:
@@ -8,11 +16,13 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - name: Smoke test for 'base-ubuntu'
-        id: smoke_test_base_ubuntu
+      - uses: actions/checkout@v3
+
+      - name: Smoke test
+        id: smoke_test
         uses: ./.github/actions/smoke-test
         with:
-          image: "base-ubuntu"
+          image: "${{ github.event.inputs.name }}"
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
   deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
@@ -28,10 +38,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Pre-build dev container image 'base-ubuntu'
+      - name: Pre-build dev container image
         uses: devcontainers/ci@v0.3
         with:
-          subFolder: ./src/base-ubuntu
-          imageName: ghcr.io/meastp/images/base-ubuntu
+          subFolder: ./src/${{ github.event.inputs.name }}
+          imageName: ghcr.io/meastp/images/${{ github.event.inputs.name }}
           skipContainerUserIdUpdate: true
           push: always
