@@ -17,14 +17,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Smoke test for 'base-ubuntu'
-        id: smoke_test_base_ubuntu
-        uses: ./.github/actions/smoke-test
-        with:
-          image: "base-ubuntu"
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-      
-      - name: Pre-build dev container image
+      - name: Pre-build dev container image 'base-ubuntu'
         uses: devcontainers/ci@v0.3
         with:
           subFolder: ./src/base-ubuntu
@@ -32,17 +25,24 @@ jobs:
           skipContainerUserIdUpdate: true
           push: always
       
-      - name: Smoke test for 'cpp'
-        id: smoke_test_cpp
-        uses: ./.github/actions/smoke-test
-        with:
-          image: "cpp"
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-      
-      - name: Pre-build dev container image
+      - name: Pre-build dev container image 'cpp'
         uses: devcontainers/ci@v0.3
         with:
           subFolder: ./src/base-ubuntu
           imageName: ghcr.io/meastp/images/cpp
           skipContainerUserIdUpdate: true
           push: always
+      
+      - name: Smoke test for 'base-ubuntu'
+        id: smoke_test_base_ubuntu
+        uses: ./.github/actions/smoke-test
+        with:
+          image: "base-ubuntu"
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+      
+      - name: Smoke test for 'cpp'
+        id: smoke_test_cpp
+        uses: ./.github/actions/smoke-test
+        with:
+          image: "cpp"
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
