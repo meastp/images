@@ -3,7 +3,12 @@
 		"dockerfile": "./Dockerfile",
 		"context": "."
 	},
-	"features": {},
+	"features": {
+		"./docker-in-docker": {
+			"moby": false,
+			"dockerDashComposeVersion": "v2"
+		}
+	},
 	"capAdd": [
 		"SYS_PTRACE"
 	],
