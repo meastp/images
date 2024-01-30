@@ -9,6 +9,7 @@ on:
         options:
         - base-ubuntu
         - cpp
+        default: cpp
 
 jobs:
   test:

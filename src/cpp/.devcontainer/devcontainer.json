@@ -6,7 +6,9 @@
 	"features": {
 		"./docker-in-docker": {
 			"moby": false,
-			"dockerDashComposeVersion": "v2"
+			"dockerDashComposeVersion": "v2",
+			"dockerLicencedArchiveVersionCodenames": "lunar",
+			"dockerMobyArchiveVersionCodenames": "lunar"
 		}
 	},
 	"capAdd": [
