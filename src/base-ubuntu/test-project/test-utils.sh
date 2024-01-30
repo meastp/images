@@ -18,6 +18,7 @@ check() {
     shift
     echo -e "\n🧪 Testing $LABEL"
     if "$@"; then 
+        "$@"
         echo "✅  Passed!"
         return 0
     else

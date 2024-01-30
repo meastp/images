@@ -1,5 +1,8 @@
 FROM ghcr.io/meastp/images/base-ubuntu:latest
+
 USER root
+
+RUN cat /etc/passwd
 
 # Install needed packages. Use a separate RUN statement to add your own dependencies.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -10,8 +13,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 ENV VCPKG_ROOT=/usr/local/vcpkg \
     VCPKG_DOWNLOADS=/usr/local/vcpkg-downloads
 ENV PATH="${PATH}:${VCPKG_ROOT}"
-
-RUN cat /etc/passwd
 
 ARG USERNAME=ubuntu
 
