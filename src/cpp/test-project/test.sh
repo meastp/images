@@ -9,7 +9,7 @@ checkCommon
 # Help determine distro
 . /etc/os-release 
 
-checkOSPackages "command-line-tools" build-essential cmake cppcheck valgrind clang lldb llvm gdb
+checkOSPackages "command-line-tools" cmake gdb
 checkOSPackages "tools-for-vcpkg" tar curl zip unzip pkg-config bash-completion ninja-build
 if [ "$(dpkg --print-architecture)" = "amd64" ] ; then
     check "VCPKG_ROOT" [ -d "${VCPKG_ROOT}" ]
