@@ -5,7 +5,9 @@
     },
     "features": {
         "ghcr.io/devcontainers/features/common-utils:2": {
-            "installZsh": "true",
+            "installZsh": "false",
+            "installOhMyZsh": "false",
+            "installOhMyZshConfig": "false",
             "username": "ubuntu",
             "upgradePackages": "true"
         },
