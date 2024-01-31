@@ -22,9 +22,9 @@ updaterc()  {
     if [[ "$(cat /etc/bash.bashrc)" != *"$1"* ]]; then
         echo -e "$1" >> /etc/bash.bashrc
     fi
-    if [ -f "/etc/zsh/zshrc" ] && [[ "$(cat /etc/zsh/zshrc)" != *"$1"* ]]; then
-        echo -e "$1" >> /etc/zsh/zshrc
-    fi
+    #if [ -f "/etc/zsh/zshrc" ] && [[ "$(cat /etc/zsh/zshrc)" != *"$1"* ]]; then
+    #    echo -e "$1" >> /etc/zsh/zshrc
+    #fi
 }
 
 # Run apt-get if needed.
@@ -87,4 +87,4 @@ chmod -R g+r+w "${VCPKG_ROOT}" "${VCPKG_DOWNLOADS}"
 
 # Enable tab completion for bash and zsh
 VCPKG_FORCE_SYSTEM_BINARIES=1 su "${USERNAME}" -c "${VCPKG_ROOT}/vcpkg integrate bash"
-VCPKG_FORCE_SYSTEM_BINARIES=1 su "${USERNAME}" -c "${VCPKG_ROOT}/vcpkg integrate zsh"
+#VCPKG_FORCE_SYSTEM_BINARIES=1 su "${USERNAME}" -c "${VCPKG_ROOT}/vcpkg integrate zsh"
