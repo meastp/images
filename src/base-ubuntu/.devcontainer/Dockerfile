@@ -2,6 +2,4 @@
 ARG VARIANT="lunar"
 FROM buildpack-deps:${VARIANT}-curl
 
-RUN cat /etc/passwd
-
-LABEL dev.containers.features="common"
+#LABEL dev.containers.features="common"
