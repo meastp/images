@@ -17,17 +17,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && update-alternatives --set c++ /usr/bin/g++ \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
-# Installer Microsoft ODBC
-# Konfigurere sertifikat/pakker: https://learn.microsoft.com/en-us/linux/packages
-# https://learn.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver16
-
-RUN curl -sSL -O  https://packages.microsoft.com/config/ubuntu/23.04/packages-microsoft-prod.deb \
-    && dpkg -i packages-microsoft-prod.deb \
-    && rm packages-microsoft-prod.deb \
-    && apt-get update \
-    && ACCEPT_EULA=Y apt-get -y install --no-install-recommends msodbcsql18 unixodbc-dev \
-    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
-
 # Setup ENV vars for vcpkg
 ENV VCPKG_ROOT=/usr/local/vcpkg \
     VCPKG_DOWNLOADS=/usr/local/vcpkg-downloads
