@@ -7,6 +7,8 @@ FROM buildpack-deps:${VARIANT}-curl
 # [Optional] Uncomment this section to install additional packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   && apt-get -y install --no-install-recommends git gcc-13 g++-13 mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar dotnet-host-7.0 dotnet-sdk-7.0 gpg pass inotify-tools sudo\
+  # avhengigheter for heaptrack
+  libdw-dev libunwind-dev zlib1g zlib1g-dev libboost-iostreams-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev\ 
   && echo ubuntu ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/ubuntu \
   && chmod 0440 /etc/sudoers.d/ubuntu
 
@@ -20,3 +22,7 @@ RUN  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 20 \
 COPY ./dockerindocker.sh /home/ubuntu/dockerindocker.sh
 RUN chmod +x /home/ubuntu/dockerindocker.sh 
 RUN DOCKERDASHCOMPOSEVERSION=v2 USERNAME=ubuntu MOBY=false /home/ubuntu/dockerindocker.sh 
+
+WORKDIR /home/ubuntu
+# Installer heaptrack
+RUN git clone https://github.com/KDE/heaptrack.git && cd heaptrack && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release ..
