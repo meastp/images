@@ -25,4 +25,4 @@ RUN DOCKERDASHCOMPOSEVERSION=v2 USERNAME=ubuntu MOBY=false /home/ubuntu/dockerin
 
 WORKDIR /home/ubuntu
 # Installer heaptrack
-RUN git clone https://github.com/KDE/heaptrack.git && cd heaptrack && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release ..
+RUN git clone https://github.com/KDE/heaptrack.git && cd heaptrack && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DHEAPTRACK_BUILD_TRACK=ON -DHEAPTRACK_BUILD_INTERPRET=ON ..
