@@ -10,7 +10,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   # avhengigheter for heaptrack
   libdw-dev libunwind-dev zlib1g zlib1g-dev libboost-iostreams-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-container-dev\
   # avhengigheter for perf
-  flex bison libssl-dev libelf-dev python3 wget xz-utils\
+  flex bison libssl-dev libelf-dev python3 wget xz-utils binutils-dev libzstd-dev libcap-dev\
   && echo ubuntu ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/ubuntu \
   && chmod 0440 /etc/sudoers.d/ubuntu
 
