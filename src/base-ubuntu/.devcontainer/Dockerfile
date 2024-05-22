@@ -29,11 +29,11 @@ RUN DOCKERDASHCOMPOSEVERSION=v2 USERNAME=ubuntu MOBY=false /home/ubuntu/dockerin
 
 WORKDIR /home/ubuntu
 # Bygg perf
-RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v5.15.0/perf-${PERF_VER}.0.tar.xz
-  && tar xf perf-${PERF_VER}.0.tar.xz
-  && cd perf-${PERF_VER}.0
+RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v5.15.0/perf-${PERF_VER}.0.tar.xz\
+  && tar xf perf-${PERF_VER}.0.tar.xz\
+  && cd perf-${PERF_VER}.0\
 # Måtte fjerne -Werror en del Makefiles før bygging fordi vi bygger med nyere GCC som har fått flere warnings-as-errors.
-  && find . -type f | xargs sed -i 's/-Werror//g'
+  && find . -type f | xargs sed -i 's/-Werror//g'\
 # Når bygging er ferdig skal perf være klar i ./tools/perf/perf
   && make -C tools/perf install
 
