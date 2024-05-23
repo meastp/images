@@ -28,12 +28,15 @@ RUN DOCKERDASHCOMPOSEVERSION=v2 USERNAME=ubuntu MOBY=false /home/ubuntu/dockerin
 
 
 WORKDIR /home/ubuntu
+COPY ./fix_init_disassemble_info.patch /home/ubuntu/fix_init_disassemble_info.patch
 # Bygg perf
 ARG PERF_VER="5.15"
 RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v5.15.0/perf-$PERF_VER.0.tar.xz\
   && tar xf perf-$PERF_VER.0.tar.xz\
   && mv perf-$PERF_VER.0 perf_build\
   && cd perf_build\
+  && mv /home/ubuntu/fix_init_disassemble_info.patch .\
+  && patch -p1 <fix_init_disassemble_info.patch\
 # Måtte fjerne -Werror en del Makefiles før bygging fordi vi bygger med nyere GCC som har fått flere warnings-as-errors.
   && find . -type f | xargs sed -i 's/-Werror//g'\
 # Når bygging er ferdig skal perf være klar i /home/ubuntu/per_build/tools/perf/perf
