@@ -38,6 +38,8 @@ RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v5.15.0/per
   && patch -p1 <fix_init_disassemble_info.patch\
 # Måtte fjerne -Werror en del Makefiles før bygging fordi vi bygger med nyere GCC som har fått flere warnings-as-errors.
   && find . -type f | xargs sed -i 's/-Werror//g'\
+# Lurt å bygge statisk binærfil for å kunne kopiere rundt uten ekstra avhengigheter
+  && sed -i 's/# Define LDFLAGS=-static to build a static binary./LDFLAGS=-static/g' tools/perf/Makefile.perf\ 
 # Når bygging er ferdig skal perf være klar i /home/ubuntu/per_build/tools/perf/perf
   && make -C tools/perf install
 
