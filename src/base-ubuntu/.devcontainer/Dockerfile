@@ -10,7 +10,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   # avhengigheter for heaptrack
   libdw-dev libunwind-dev zlib1g zlib1g-dev libboost-iostreams-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-container-dev\
   # avhengigheter for perf
-  patch flex bison libssl-dev elfutils libaudit-dev libelf-dev libcap-dev python3 wget xz-utils libzstd-dev binutils-dev libiberty-dev\ 
+  patch flex bison libssl-dev elfutils libaudit-dev libelf-dev libcap-dev python3 wget xz-utils libzstd-dev binutils-dev libiberty-dev python3-dev libslang2-dev libcap-dev systemtap-sdt-dev\ 
   && echo ubuntu ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/ubuntu \
   && chmod 0440 /etc/sudoers.d/ubuntu
 
@@ -39,7 +39,7 @@ RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v5.15.0/per
 # Måtte fjerne -Werror en del Makefiles før bygging fordi vi bygger med nyere GCC som har fått flere warnings-as-errors.
   && find . -type f | xargs sed -i 's/-Werror//g'\
 # Lurt å bygge statisk binærfil for å kunne kopiere rundt uten ekstra avhengigheter
-  && sed -i 's/# Define LDFLAGS=-static to build a static binary./LDFLAGS=-static/g' tools/perf/Makefile.perf\ 
+#  && sed -i 's/# Define LDFLAGS=-static to build a static binary./LDFLAGS=-static/g' tools/perf/Makefile.perf\ 
 # Når bygging er ferdig skal perf være klar i /home/ubuntu/per_build/tools/perf/perf
   && export LIBDW_DIR=/usr/include/elfutils && make -C tools/perf install
 
