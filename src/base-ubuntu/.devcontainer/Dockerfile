@@ -5,12 +5,16 @@ FROM buildpack-deps:${VARIANT}-curl
 #LABEL dev.containers.features="common"
 
 # [Optional] Uncomment this section to install additional packages.
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+RUN echo "deb http://ddebs.ubuntu.com noble main restricted universe multiverse
+deb http://ddebs.ubuntu.com noble-updates main restricted universe multiverse
+deb http://ddebs.ubuntu.com noble-proposed main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
+RUN apt-get install ubuntu-dbgsym-keyring && apt-get update && export DEBIAN_FRONTEND=noninteractive \
   && apt-get -y install --no-install-recommends git gcc-13 g++-13 mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar dotnet-host-8.0 dotnet-sdk-8.0 gpg pass inotify-tools sudo linux-libc-dev\
   # avhengigheter for heaptrack
   libdw-dev libunwind-dev zlib1g zlib1g-dev libboost-iostreams-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-container-dev\
   # avhengigheter for perf
   patch flex bison libssl-dev elfutils libaudit-dev libelf-dev libcap-dev wget xz-utils libzstd-dev binutils-dev libiberty-dev libslang2-dev libcap-dev systemtap-sdt-dev python3 python3-dev python3-distutils-extra\ 
+  libc6-dbg libgcc-s1-dbgsym libstdc++6-dbgsym\
   && echo ubuntu ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/ubuntu \
   && chmod 0440 /etc/sudoers.d/ubuntu
 
