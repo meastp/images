@@ -5,11 +5,12 @@ FROM buildpack-deps:${VARIANT}-curl
 #LABEL dev.containers.features="common"
 
 # [Optional] Uncomment this section to install additional packages.
+RUN apt-get -y install ubuntu-dbgsym-keyring
 RUN echo "deb http://ddebs.ubuntu.com noble main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 RUN echo "deb http://ddebs.ubuntu.com noble-updates main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 RUN echo "deb http://ddebs.ubuntu.com noble-proposed main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 
-RUN apt-get install ubuntu-dbgsym-keyring && apt-get update && export DEBIAN_FRONTEND=noninteractive \
+RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive \
   && apt-get -y install --no-install-recommends git gcc-13 g++-13 mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar dotnet-host-8.0 dotnet-sdk-8.0 gpg pass inotify-tools sudo linux-libc-dev\
   # avhengigheter for heaptrack
   libdw-dev libunwind-dev zlib1g zlib1g-dev libboost-iostreams-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-container-dev\
