@@ -6,10 +6,10 @@ FROM buildpack-deps:${VARIANT}-curl
 
 # [Optional] Uncomment this section to install additional packages.
 RUN apt-get update && apt-get -y install ubuntu-dbgsym-keyring
-RUN cat /etc/apt/sources.list.d/ubuntu.sources
+# To see which repos are activated: RUN cat /etc/apt/sources.list.d/ubuntu.sources
 RUN echo "deb http://ddebs.ubuntu.com noble main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 RUN echo "deb http://ddebs.ubuntu.com noble-updates main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
-#RUN echo "deb http://ddebs.ubuntu.com noble-proposed main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
+# Disabled because proposed aren't activated in ubuntu.sources RUN echo "deb http://ddebs.ubuntu.com noble-proposed main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 
 RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgrade \
   && apt-get -y install --no-install-recommends git gcc-14 g++-14 mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar dotnet-host-8.0 dotnet-sdk-8.0 gpg pass inotify-tools sudo linux-libc-dev\
