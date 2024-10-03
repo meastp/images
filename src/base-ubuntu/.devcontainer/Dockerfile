@@ -11,7 +11,7 @@ RUN echo "deb http://ddebs.ubuntu.com noble-updates main restricted universe mul
 RUN echo "deb http://ddebs.ubuntu.com noble-proposed main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 
 RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive \
-  && apt-get -y install --no-install-recommends git gcc-13 g++-13 mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar dotnet-host-8.0 dotnet-sdk-8.0 gpg pass inotify-tools sudo linux-libc-dev\
+  && apt-get -y install --no-install-recommends git gcc-14 g++-14 mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar dotnet-host-8.0 dotnet-sdk-8.0 gpg pass inotify-tools sudo linux-libc-dev\
   # avhengigheter for heaptrack
   libdw-dev libunwind-dev zlib1g zlib1g-dev libboost-iostreams-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-container-dev\
   # avhengigheter for perf
@@ -20,8 +20,8 @@ RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive \
   && echo ubuntu ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/ubuntu \
   && chmod 0440 /etc/sudoers.d/ubuntu
 
-RUN  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 20 \
-  && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-13 20 \
+RUN  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 20 \
+  && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 20 \
   && update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 \
   && update-alternatives --set cc /usr/bin/gcc \
   && update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 \
