@@ -6,7 +6,7 @@ FROM buildpack-deps:${VARIANT}-curl
 
 # [Optional] Uncomment this section to install additional packages.
 RUN apt-get update && apt-get -y install ubuntu-dbgsym-keyring
-RUN ls /etc/apt/sources.list.d
+RUN cat /etc/apt/sources.list.d/ubuntu.sources
 RUN echo "deb http://ddebs.ubuntu.com noble main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 RUN echo "deb http://ddebs.ubuntu.com noble-updates main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 #RUN echo "deb http://ddebs.ubuntu.com noble-proposed main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
