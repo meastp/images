@@ -19,7 +19,7 @@ RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgra
   patch flex bison libssl-dev elfutils libaudit-dev libelf-dev libcap-dev wget xz-utils libzstd-dev binutils-dev libiberty-dev libslang2-dev libcap-dev systemtap-sdt-dev python3 python3-dev python3-distutils-extra\ 
   libc6-dbg libgcc-s1-dbgsym libstdc++6-dbgsym\
   # gcovr coverage
-  pipx
+  pipx\
   && echo ubuntu ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/ubuntu \
   && chmod 0440 /etc/sudoers.d/ubuntu
 
