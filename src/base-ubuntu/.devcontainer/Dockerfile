@@ -57,5 +57,7 @@ WORKDIR /home/ubuntu
 RUN git clone https://github.com/KDE/heaptrack.git && cd heaptrack && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make -j$(nproc)
 # Når bygging er ferdig skal perf være klar i /home/ubuntu/heaptrack/build/bin/heaptrack
 
+USER ubuntu
+
 RUN pipx ensurepath\ 
  && pipx install gcovr
