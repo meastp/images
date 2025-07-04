@@ -25,6 +25,7 @@ RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgra
 
 RUN  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 20 \
   && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 20 \
+  && update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-14 20 \
   && update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 \
   && update-alternatives --set cc /usr/bin/gcc \
   && update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 \
