@@ -36,9 +36,8 @@ COPY ./dockerindocker.sh /home/ubuntu/dockerindocker.sh
 RUN chmod +x /home/ubuntu/dockerindocker.sh 
 RUN DOCKERDASHCOMPOSEVERSION=v2 USERNAME=ubuntu MOBY=false /home/ubuntu/dockerindocker.sh 
 
-
 WORKDIR /home/ubuntu
-COPY ./fix_init_disassemble_info.patch /home/ubuntu/fix_init_disassemble_info.patch
+
 # Bygg perf
 ARG PERF_VER="6.6"
 RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v$PERF_VER.0/perf-$PERF_VER.0.tar.xz\
