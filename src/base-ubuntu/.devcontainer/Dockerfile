@@ -45,8 +45,6 @@ RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v$PERF_VER.
   && tar xf perf-$PERF_VER.0.tar.xz\
   && mv perf-$PERF_VER.0 perf_build\
   && cd perf_build\
-#  && mv /home/ubuntu/fix_init_disassemble_info.patch .\
-#  && patch -p1 <fix_init_disassemble_info.patch\
 # Måtte fjerne -Werror en del Makefiles før bygging fordi vi bygger med nyere GCC som har fått flere warnings-as-errors.
   && find . -type f | xargs sed -i 's/-Werror//g'\
 # Lurt å bygge statisk binærfil for å kunne kopiere rundt uten ekstra avhengigheter
