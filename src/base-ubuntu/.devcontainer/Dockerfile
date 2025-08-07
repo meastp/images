@@ -39,7 +39,7 @@ RUN DOCKERDASHCOMPOSEVERSION=v2 USERNAME=ubuntu MOBY=false /home/ubuntu/dockerin
 WORKDIR /home/ubuntu
 COPY ./fix_init_disassemble_info.patch /home/ubuntu/fix_init_disassemble_info.patch
 # Bygg perf
-ARG PERF_VER="5.15"
+ARG PERF_VER="6.6"
 RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v5.15.0/perf-$PERF_VER.0.tar.xz\
   && tar xf perf-$PERF_VER.0.tar.xz\
   && mv perf-$PERF_VER.0 perf_build\
@@ -56,7 +56,7 @@ RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v5.15.0/per
 WORKDIR /home/ubuntu
 # Bygg heaptrack
 RUN git clone https://github.com/KDE/heaptrack.git && cd heaptrack && mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make -j$(nproc)
-# Når bygging er ferdig skal perf være klar i /home/ubuntu/heaptrack/build/bin/heaptrack
+# Når bygging er ferdig skal heaptrack være klar i /home/ubuntu/heaptrack/build/bin/heaptrack
 
 USER ubuntu
 
