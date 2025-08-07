@@ -40,7 +40,7 @@ WORKDIR /home/ubuntu
 COPY ./fix_init_disassemble_info.patch /home/ubuntu/fix_init_disassemble_info.patch
 # Bygg perf
 ARG PERF_VER="6.6"
-RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v5.15.0/perf-$PERF_VER.0.tar.xz\
+RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v$PERF_VER.0/perf-$PERF_VER.0.tar.xz\
   && tar xf perf-$PERF_VER.0.tar.xz\
   && mv perf-$PERF_VER.0 perf_build\
   && cd perf_build\
