@@ -1,9 +1,12 @@
 # [Choice] Ubuntu version (use jammy on local arm64/Apple Silicon): jammy, focal
 ARG VARIANT="plucky"
-ARG GCCVER="15"
-ARG PERF_VER="6.14"
 
 FROM buildpack-deps:${VARIANT}-curl
+
+# RE-DECLARE HERE to make it available to RUN commands
+ARG VARIANT
+ARG GCCVER="15"
+ARG PERF_VER="6.14"
 
 #LABEL dev.containers.features="common"
 
