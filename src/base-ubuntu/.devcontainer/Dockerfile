@@ -1,5 +1,8 @@
 # [Choice] Ubuntu version (use jammy on local arm64/Apple Silicon): jammy, focal
-ARG VARIANT="noble"
+ARG VARIANT="plucky"
+ARG GCCVER="15"
+ARG PERF_VER="6.14"
+
 FROM buildpack-deps:${VARIANT}-curl
 
 #LABEL dev.containers.features="common"
@@ -12,7 +15,7 @@ RUN echo "deb http://ddebs.ubuntu.com noble-updates main restricted universe mul
 #RUN echo "deb http://ddebs.ubuntu.com noble-proposed main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 
 RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgrade \
-  && apt-get -y install --no-install-recommends git gcc-14 g++-14 mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar libtool dotnet-host-8.0 dotnet-sdk-8.0 gpg pass inotify-tools sudo linux-libc-dev\
+  && apt-get -y install --no-install-recommends git gcc-${GCCVER} g++-${GCCVER} mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar libtool dotnet-host-8.0 dotnet-sdk-8.0 gpg pass inotify-tools sudo linux-libc-dev\
   # avhengigheter for heaptrack
   libdw-dev libunwind-dev zlib1g zlib1g-dev libboost-iostreams-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-container-dev\
   # avhengigheter for perf
@@ -24,9 +27,9 @@ RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgra
   && echo ubuntu ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/ubuntu \
   && chmod 0440 /etc/sudoers.d/ubuntu
 
-RUN  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-14 20 \
-  && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-14 20 \
-  && update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-14 20 \
+RUN  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCCVER} 20 \
+  && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${GCCVER} 20 \
+  && update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-${GCCVER} 20 \
   && update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 \
   && update-alternatives --set cc /usr/bin/gcc \
   && update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 \
@@ -39,7 +42,6 @@ RUN DOCKERDASHCOMPOSEVERSION=v2 USERNAME=ubuntu MOBY=false /home/ubuntu/dockerin
 WORKDIR /home/ubuntu
 
 # Bygg perf
-ARG PERF_VER="6.6"
 RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v$PERF_VER.0/perf-$PERF_VER.0.tar.xz\
   && tar xf perf-$PERF_VER.0.tar.xz\
   && mv perf-$PERF_VER.0 perf_build\
