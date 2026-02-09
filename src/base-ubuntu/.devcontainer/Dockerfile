@@ -6,7 +6,6 @@ FROM buildpack-deps:${VARIANT}-curl
 # RE-DECLARE HERE to make it available to RUN commands
 ARG VARIANT
 ARG GCCVER="15"
-ARG PERF_VER="6.17"
 
 #LABEL dev.containers.features="common"
 
@@ -44,8 +43,10 @@ RUN DOCKERDASHCOMPOSEVERSION=v2 USERNAME=ubuntu MOBY=false /home/ubuntu/dockerin
 
 WORKDIR /home/ubuntu
 
-# Bygg perf
-RUN wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v$PERF_VER.0/perf-$PERF_VER.0.tar.xz\
+# Bygg perf (med samme kernel-versjon som i containeren)
+RUN PERF_VER=$(uname -r | cut -d. -f1,2)\
+  && echo "Kernel version is: $PERF_VER"\
+  && wget https://mirrors.edge.kernel.org/pub/linux/kernel/tools/perf/v$PERF_VER.0/perf-$PERF_VER.0.tar.xz\
   && tar xf perf-$PERF_VER.0.tar.xz\
   && mv perf-$PERF_VER.0 perf_build\
   && cd perf_build\
