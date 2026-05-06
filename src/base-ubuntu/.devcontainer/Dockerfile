@@ -17,8 +17,8 @@ RUN echo "deb http://ddebs.ubuntu.com ${VARIANT}-updates main restricted univers
 #RUN echo "deb http://ddebs.ubuntu.com ${VARIANT}-proposed main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 # clang-tidy
 RUN mkdir -p /etc/apt/keyrings \
-  && wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/keyrings/llvm-snapshot.asc > /dev/null \
-  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/llvm-snapshot.asc] http://apt.llvm.org/questing/ llvm-toolchain-questing main" | sudo tee /etc/apt/sources.list.d/llvm.list
+  && wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | tee /etc/apt/keyrings/llvm-snapshot.asc > /dev/null \
+  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/llvm-snapshot.asc] http://apt.llvm.org/questing/ llvm-toolchain-questing main" | tee /etc/apt/sources.list.d/llvm.list
 
 RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgrade \
   && apt-get -y install --no-install-recommends git gcc-${GCCVER} g++-${GCCVER} mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar libtool dotnet-host-8.0 dotnet-sdk-8.0 gpg pass inotify-tools sudo linux-libc-dev\
