@@ -17,7 +17,7 @@ RUN echo "deb http://ddebs.ubuntu.com ${VARIANT}-updates main restricted univers
 #RUN echo "deb http://ddebs.ubuntu.com ${VARIANT}-proposed main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 # clang-tidy
 RUN mkdir -p /etc/apt/keyrings \
-  && wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/keyrings/llvm-snapshot.asc > /dev/null
+  && wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/keyrings/llvm-snapshot.asc > /dev/null \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/llvm-snapshot.asc] http://apt.llvm.org/questing/ llvm-toolchain-questing main" | sudo tee /etc/apt/sources.list.d/llvm.list
 
 RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgrade \
