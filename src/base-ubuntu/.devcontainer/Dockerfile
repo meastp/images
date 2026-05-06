@@ -33,7 +33,7 @@ RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgra
   # devcontainer build: mono to run nuget
   mono-complete libtool cppcheck\
   # clang-tidy
-  gnupg ca-certificates clang-tidy-23
+  gnupg ca-certificates clang-tidy-23\
   && echo ubuntu ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/ubuntu \
   && chmod 0440 /etc/sudoers.d/ubuntu
 
