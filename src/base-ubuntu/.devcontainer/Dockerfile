@@ -15,6 +15,10 @@ RUN apt-get update && apt-get -y install ubuntu-dbgsym-keyring
 RUN echo "deb http://ddebs.ubuntu.com ${VARIANT} main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 RUN echo "deb http://ddebs.ubuntu.com ${VARIANT}-updates main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
 #RUN echo "deb http://ddebs.ubuntu.com ${VARIANT}-proposed main restricted universe multiverse" | tee -a /etc/apt/sources.list.d/ddebs.list
+# clang-tidy
+RUN mkdir -p /etc/apt/keyrings \
+  && wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/keyrings/llvm-snapshot.asc > /dev/null
+  && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/llvm-snapshot.asc] http://apt.llvm.org/questing/ llvm-toolchain-questing main" | sudo tee /etc/apt/sources.list.d/llvm.list
 
 RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgrade \
   && apt-get -y install --no-install-recommends git gcc-${GCCVER} g++-${GCCVER} mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar libtool dotnet-host-8.0 dotnet-sdk-8.0 gpg pass inotify-tools sudo linux-libc-dev\
@@ -26,6 +30,10 @@ RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgra
   libc6-dbg libgcc-s1-dbgsym libstdc++6-dbgsym\
   # gcovr coverage
   pipx\
+  # devcontainer build: mono to run nuget
+  mono-complete libtool cppcheck\
+  # clang-tidy
+  gnupg ca-certificates clang-tidy-23
   && echo ubuntu ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/ubuntu \
   && chmod 0440 /etc/sudoers.d/ubuntu
 
@@ -35,7 +43,8 @@ RUN  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCCVER} 20 \
   && update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30 \
   && update-alternatives --set cc /usr/bin/gcc \
   && update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30 \
-  && update-alternatives --set c++ /usr/bin/g++
+  && update-alternatives --set c++ /usr/bin/g++ \
+  && update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-23 200
 
 COPY ./dockerindocker.sh /home/ubuntu/dockerindocker.sh
 RUN chmod +x /home/ubuntu/dockerindocker.sh 
