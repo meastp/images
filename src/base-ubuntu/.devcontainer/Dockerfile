@@ -6,7 +6,7 @@ FROM buildpack-deps:${VARIANT}-curl
 # RE-DECLARE HERE to make it available to RUN commands
 ARG VARIANT
 ARG GCCVER="16"
-ARG DOTNETVER="10"
+ARG DOTNETVER="10.0"
 
 #LABEL dev.containers.features="common"
 
