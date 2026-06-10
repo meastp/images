@@ -1,11 +1,11 @@
 # [Choice] Ubuntu version (use jammy on local arm64/Apple Silicon): jammy, focal
-ARG VARIANT="questing"
+ARG VARIANT="resolute"
 
 FROM buildpack-deps:${VARIANT}-curl
 
 # RE-DECLARE HERE to make it available to RUN commands
 ARG VARIANT
-ARG GCCVER="15"
+ARG GCCVER="16"
 
 #LABEL dev.containers.features="common"
 
