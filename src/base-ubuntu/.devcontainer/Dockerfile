@@ -52,6 +52,13 @@ COPY ./dockerindocker.sh /home/ubuntu/dockerindocker.sh
 RUN chmod +x /home/ubuntu/dockerindocker.sh 
 RUN DOCKERDASHCOMPOSEVERSION=v2 USERNAME=ubuntu MOBY=false /home/ubuntu/dockerindocker.sh 
 
+# Mono 6.14.1's btls (BoringSSL) reads trust anchors from /usr/share/.mono/new-certs/Trust, but this path doesn't exist in the image. 
+# The old scripts/cert-sync populated /usr/share/.mono/certs/Trust (the managed X509Store path, which btls ignores for native TLS verification).
+# /etc/ssl/certs already has the CA certs in the exact format BoringSSL expects (OpenSSL HASH.0 symlinks). The symlink wires it up in one line.
+
+RUN mkdir -p /usr/share/.mono/new-certs && \
+    ln -s /etc/ssl/certs /usr/share/.mono/new-certs/Trust
+
 WORKDIR /home/ubuntu
 
 # Bygg perf (med samme kernel-versjon som i containeren)
