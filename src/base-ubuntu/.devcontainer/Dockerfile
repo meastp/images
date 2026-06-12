@@ -22,7 +22,7 @@ RUN mkdir -p /etc/apt/keyrings \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/llvm-snapshot.asc] http://apt.llvm.org/questing/ llvm-toolchain-questing main" | tee /etc/apt/sources.list.d/llvm.list
 
 RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y upgrade \
-  && apt-get -y install --no-install-recommends git gcc-${GCCVER} g++-${GCCVER} mold cmake automake make ninja-build ccache rsync gdb pkg-config zip unzip tar libtool dotnet-host-${DOTNETVER} dotnet-sdk-${DOTNETVER} gpg pass inotify-tools sudo linux-libc-dev\
+  && apt-get -y install --no-install-recommends git gcc-${GCCVER} g++-${GCCVER} mold cmake automake make autoconf autoconf-archive ninja-build ccache rsync gdb pkg-config zip unzip tar libtool dotnet-host-${DOTNETVER} dotnet-sdk-${DOTNETVER} gpg pass inotify-tools sudo linux-libc-dev\
   # avhengigheter for heaptrack
   libdw-dev libunwind-dev zlib1g zlib1g-dev libboost-iostreams-dev libboost-program-options-dev libboost-system-dev libboost-filesystem-dev libboost-container-dev\
   # avhengigheter for perf
